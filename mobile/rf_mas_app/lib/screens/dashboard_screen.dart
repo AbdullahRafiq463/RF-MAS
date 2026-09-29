@@ -105,7 +105,7 @@ class DashboardScreen extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                  childAspectRatio: 1.6,
+                  childAspectRatio: 1.35,
                   children: [
                     SummaryCard(
                       title: 'Total Instruments',
@@ -166,9 +166,11 @@ class DashboardScreen extends StatelessWidget {
                       children: [
                         Icon(Icons.check_circle_outline, color: AppColors.onlineGreen, size: 20),
                         SizedBox(width: 10),
-                        Text(
-                          'All parameters operating within safe thresholds.',
-                          style: TextStyle(color: Colors.white70, fontSize: 12),
+                        Expanded(
+                          child: Text(
+                            'All parameters operating within safe thresholds.',
+                            style: TextStyle(color: Colors.white70, fontSize: 12),
+                          ),
                         ),
                       ],
                     ),

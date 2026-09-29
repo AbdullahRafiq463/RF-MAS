@@ -160,14 +160,19 @@ class AlertsScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        '${alert.deviceId} • ${alert.alertType}',
-                        style: TextStyle(
-                          color: color,
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Text(
+                          '${alert.deviceId} • ${alert.alertType}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: color,
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
+                      const SizedBox(width: 6),
                       Text(
                         timeStr,
                         style: const TextStyle(color: Colors.white38, fontSize: 10, fontFamily: 'monospace'),
@@ -180,8 +185,11 @@ class AlertsScreen extends StatelessWidget {
                     style: const TextStyle(color: Colors.white, fontSize: 12),
                   ),
                   const SizedBox(height: 6),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 4,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    alignment: WrapAlignment.spaceBetween,
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),

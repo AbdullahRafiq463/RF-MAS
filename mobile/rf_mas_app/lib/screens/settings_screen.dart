@@ -62,13 +62,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       children: [
                         Icon(Icons.school_outlined, color: AppColors.primaryBlue, size: 18),
                         SizedBox(width: 8),
-                        Text(
-                          'EDUCATIONAL SIMULATION NOTICE',
-                          style: TextStyle(
-                            color: AppColors.primaryBlue,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            letterSpacing: 0.5,
+                        Expanded(
+                          child: Text(
+                            'EDUCATIONAL SIMULATION NOTICE',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: AppColors.primaryBlue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              letterSpacing: 0.5,
+                            ),
                           ),
                         ),
                       ],
@@ -103,7 +107,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       controller: _urlController,
                       decoration: const InputDecoration(
                         labelText: 'ASP.NET Core Backend Base URL',
-                        hintText: 'http://10.0.2.2:5000',
+                        hintText: 'http://192.168.0.107:5000',
                         prefixIcon: Icon(Icons.dns_outlined, size: 20),
                       ),
                     ),
@@ -129,17 +133,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       children: [
                         OutlinedButton(
                           onPressed: () {
-                            _urlController.text = 'http://10.0.2.2:5000';
+                            _urlController.text = 'http://192.168.0.107:5000';
                             _saveUrl(settings);
                           },
-                          child: const Text('Android Emulator (10.0.2.2:5000)', style: TextStyle(fontSize: 11)),
+                          child: const Text('Wi-Fi Phone (192.168.0.107)', style: TextStyle(fontSize: 11)),
                         ),
                         OutlinedButton(
                           onPressed: () {
                             _urlController.text = 'http://localhost:5000';
                             _saveUrl(settings);
                           },
-                          child: const Text('Localhost (5000)', style: TextStyle(fontSize: 11)),
+                          child: const Text('Localhost (Windows / Web)', style: TextStyle(fontSize: 11)),
+                        ),
+                        OutlinedButton(
+                          onPressed: () {
+                            _urlController.text = 'http://10.0.2.2:5000';
+                            _saveUrl(settings);
+                          },
+                          child: const Text('Android Emulator (10.0.2.2)', style: TextStyle(fontSize: 11)),
                         ),
                       ],
                     ),

@@ -1,0 +1,9 @@
+**/.git
+**/.vs
+**/.vscode
+**/bin
+**/obj
+**/mobile
+**/*.user
+**/*.suo
+*.md

@@ -117,19 +117,28 @@ class DevicesScreen extends StatelessWidget {
 
               // Live Telemetry Row
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _metricItem('FREQUENCY', '${device.frequencyMHz.toStringAsFixed(2)} MHz', AppColors.frequencyGreen),
-                  _metricItem('POWER', '${device.signalPowerDbm.toStringAsFixed(1)} dBm', AppColors.powerBlue),
-                  _metricItem('TEMPERATURE', '${device.temperatureC.toStringAsFixed(1)} °C', AppColors.temperatureOrange),
-                  _metricItem('VOLTAGE', '${device.voltageV.toStringAsFixed(2)} V', AppColors.voltageYellow),
+                  Expanded(
+                    child: _metricItem('FREQUENCY', '${device.frequencyMHz.toStringAsFixed(1)}M', AppColors.frequencyGreen),
+                  ),
+                  Expanded(
+                    child: _metricItem('POWER', '${device.signalPowerDbm.toStringAsFixed(1)}dBm', AppColors.powerBlue),
+                  ),
+                  Expanded(
+                    child: _metricItem('TEMP', '${device.temperatureC.toStringAsFixed(1)}°C', AppColors.temperatureOrange),
+                  ),
+                  Expanded(
+                    child: _metricItem('VOLTAGE', '${device.voltageV.toStringAsFixed(1)}V', AppColors.voltageYellow),
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
 
               // Bottom Actions: Quick Demo Scenario & Details
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+              Wrap(
+                spacing: 8,
+                runSpacing: 6,
+                alignment: WrapAlignment.end,
                 children: [
                   OutlinedButton.icon(
                     style: OutlinedButton.styleFrom(
@@ -146,7 +155,6 @@ class DevicesScreen extends StatelessWidget {
                       });
                     },
                   ),
-                  const SizedBox(width: 8),
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.darkSurface,

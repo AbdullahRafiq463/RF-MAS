@@ -42,7 +42,11 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.deviceId} Control & Telemetry'),
+        title: Text(
+          '${widget.deviceId} Control & Telemetry',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.bug_report_outlined),
@@ -194,11 +198,16 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
           const Divider(),
           const SizedBox(height: 8),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _specItem('Last Comm', DateFormat('HH:mm:ss').format(device.lastCommunicationTime.toLocal())),
-              _specItem('Voltage Rail', '${device.voltageV.toStringAsFixed(2)} V'),
-              _specItem('Current Draw', '${device.currentA.toStringAsFixed(2)} A'),
+              Expanded(
+                child: _specItem('Last Comm', DateFormat('HH:mm:ss').format(device.lastCommunicationTime.toLocal())),
+              ),
+              Expanded(
+                child: _specItem('Voltage Rail', '${device.voltageV.toStringAsFixed(2)} V'),
+              ),
+              Expanded(
+                child: _specItem('Current Draw', '${device.currentA.toStringAsFixed(2)} A'),
+              ),
             ],
           ),
         ],
@@ -387,10 +396,24 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: const TextStyle(fontSize: 12, color: Colors.white70)),
-          Text(val, style: const TextStyle(fontSize: 11, color: Colors.white38, fontFamily: 'monospace')),
+          Expanded(
+            flex: 4,
+            child: Text(
+              label,
+              style: const TextStyle(fontSize: 12, color: Colors.white70),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            flex: 6,
+            child: Text(
+              val,
+              textAlign: TextAlign.end,
+              style: const TextStyle(fontSize: 11, color: Colors.white38, fontFamily: 'monospace'),
+            ),
+          ),
         ],
       ),
     );

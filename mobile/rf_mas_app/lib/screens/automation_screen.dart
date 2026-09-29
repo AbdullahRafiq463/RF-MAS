@@ -89,12 +89,11 @@ class AutomationScreen extends StatelessWidget {
 
           // Pass / Fail Counters
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _statItem('Total Executed', '${provider.testHistory.length}', Colors.white70),
-              _statItem('Passed', '${provider.passCount}', AppColors.onlineGreen),
-              _statItem('Failed', '${provider.failCount}', AppColors.criticalRed),
-              _statItem('Errors', '${provider.errorCount}', AppColors.warningAmber),
+              Expanded(child: _statItem('Total Executed', '${provider.testHistory.length}', Colors.white70)),
+              Expanded(child: _statItem('Passed', '${provider.passCount}', AppColors.onlineGreen)),
+              Expanded(child: _statItem('Failed', '${provider.failCount}', AppColors.criticalRed)),
+              Expanded(child: _statItem('Errors', '${provider.errorCount}', AppColors.warningAmber)),
             ],
           ),
         ],
@@ -107,7 +106,7 @@ class AutomationScreen extends StatelessWidget {
       children: [
         Text(value, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color)),
         const SizedBox(height: 2),
-        Text(label, style: const TextStyle(fontSize: 10, color: Colors.white38)),
+        Text(label, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 10, color: Colors.white38)),
       ],
     );
   }
@@ -188,12 +187,15 @@ class AutomationScreen extends StatelessWidget {
                       Expanded(
                         child: Text(
                           '${test.deviceId} • ${test.testName}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                         ),
                       ),
                     ],
                   ),
                 ),
+                const SizedBox(width: 6),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
@@ -217,7 +219,12 @@ class AutomationScreen extends StatelessWidget {
               children: [
                 const Text('Expected: ', style: TextStyle(fontSize: 11, color: Colors.white38)),
                 Expanded(
-                  child: Text(test.expectedValue, style: const TextStyle(fontSize: 11, color: Colors.white70)),
+                  child: Text(
+                    test.expectedValue,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 11, color: Colors.white70),
+                  ),
                 ),
               ],
             ),
@@ -228,6 +235,8 @@ class AutomationScreen extends StatelessWidget {
                 Expanded(
                   child: Text(
                     test.actualValue,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 11, color: statusColor, fontWeight: FontWeight.w600),
                   ),
                 ),

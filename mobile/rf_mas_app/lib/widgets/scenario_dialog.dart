@@ -18,58 +18,70 @@ class ScenarioDialog {
 
     await showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       backgroundColor: AppColors.darkSurface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (ctx) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      builder: (ctx) => SafeArea(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.75,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'DEMO SCENARIOS: $deviceId',
-                  style: const TextStyle(
-                    color: AppColors.primaryTeal,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'DEMO SCENARIOS: $deviceId',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: AppColors.primaryTeal,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close, size: 20),
+                      onPressed: () => Navigator.pop(ctx),
+                    ),
+                  ],
                 ),
-                IconButton(
-                  icon: const Icon(Icons.close, size: 20),
-                  onPressed: () => Navigator.pop(ctx),
+                const Text(
+                  'Inject simulated hardware conditions to demonstrate real-time alerts & automation tests:',
+                  style: TextStyle(color: Colors.white54, fontSize: 12),
+                ),
+                const SizedBox(height: 12),
+                Flexible(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: scenarios.length,
+                    itemBuilder: (context, idx) {
+                      final s = scenarios[idx];
+                      return ListTile(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        title: Text(s['label']!, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+                        subtitle: Text(s['desc']!, style: const TextStyle(fontSize: 11, color: Colors.white38)),
+                        trailing: const Icon(Icons.play_arrow, color: AppColors.primaryTeal, size: 20),
+                        onTap: () {
+                          Navigator.pop(ctx);
+                          onSelect(s['name']!, null);
+                        },
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
-            const Text(
-              'Inject simulated hardware conditions to demonstrate real-time alerts & automation tests:',
-              style: TextStyle(color: Colors.white54, fontSize: 12),
-            ),
-            const SizedBox(height: 12),
-            Flexible(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: scenarios.length,
-                itemBuilder: (context, idx) {
-                  final s = scenarios[idx];
-                  return ListTile(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                    title: Text(s['label']!, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
-                    subtitle: Text(s['desc']!, style: const TextStyle(fontSize: 11, color: Colors.white38)),
-                    trailing: const Icon(Icons.play_arrow, color: AppColors.primaryTeal, size: 20),
-                    onTap: () {
-                      Navigator.pop(ctx);
-                      onSelect(s['name']!, null);
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
